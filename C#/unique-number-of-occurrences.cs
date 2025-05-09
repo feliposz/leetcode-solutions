@@ -1,24 +1,19 @@
 public class Solution {
     public bool UniqueOccurrences(int[] arr) {
-        var seen = new Dictionary<int,int>();
-
-        foreach (int x in arr) {
-            if (!seen.ContainsKey(x)) {
-                seen[x] = 0;
+        Dictionary<int,int> count = new();
+        foreach (int n in arr) {
+            if (!count.ContainsKey(n)) {
+                count[n] = 0;
             }
-            seen[x]++;
+            count[n]++;
         }
-
-        var occur = new HashSet<int>();
-
-        foreach (var p in seen) {
-            if (occur.Contains(p.Value)) {
+        HashSet<int> seen = new();
+        foreach (var (_, n) in count) {
+            if (seen.Contains(n)) {
                 return false;
-            } else {
-                occur.Add(p.Value);
             }
+            seen.Add(n);
         }
-
         return true;
     }
 }
